@@ -13,7 +13,7 @@ const validateFirstName = (input) => {
     let noNum = /\d/; // regEx, inga siffror
 
     if (input.value.trim() === "") { // kontrollerar att input inte är tom
-        // console.log("Skriv in ditt förnamn")
+        console.log("Skriv in ditt förnamn")
         return Errors() 
     }
     else if (input.value.length < 2) { // kontrollera att input är mer än 2 chars
@@ -34,7 +34,7 @@ const validateLastName = (input) => {
     let noNum = /\d/; // regEx, inga siffror
 
     if (input.value.trim() == "") { // kontrollerar att input inte är tom
-        // console.log("Skriv in ditt efternamn")
+        console.log("Skriv in ditt efternamn")
         return Errors()
     }
     else if (input.value.length < 2) { // kontrollera att input är mer än 2 chars
@@ -43,6 +43,7 @@ const validateLastName = (input) => {
     }
     else if (noNum.test(input.value)) { // inga siffror i namnet 
         console.log('Det kan inte vara några siffror i namnet')
+        return Errors()
     }
     else {
         return Success()
@@ -69,13 +70,13 @@ const validateEmail = (input) => {
 
 const passwordValidation = (input) => {
 
-    let validPassword = /^[\w-.]+@([\w-]+.)+[\w-]{2,6}$/ // regEx, lösenord
-// lösenordsexempel för test: Hejdå123!
+    let validPassword = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/ // regEx, lösenord
+// lösenordsexempel för test: BytMig123!
     if (input.value.trim() == "") { // kontrollerar att input inte är tom
         console.log("skriv in ett lösenord")
         return Errors()
     }
-    else if (validPassword.test(input.value)) { // jämför inputen med regEx
+    else if (!validPassword.test(input.value)) { // jämför inputen med regEx
         console.log("lösen måste ha stor bokstav, liten bokstav, siffra, specialnummer och vara 8 tecken")
         return Errors()
     }
@@ -114,8 +115,11 @@ form.addEventListener('submit', e => {
     // förhindrar sidan att laddas om när formuläret valideras
     e.preventDefault();
 
-    validateFirstName(firstName)
-    validateLastName(lastName)
+    // validateFirstName(firstName)
+    // validateLastName(lastName) 
+    // validateEmail(email)
+    // passwordValidation(password)
+    // validateCheckbox(checkbox)
 
     if  (validateFirstName(firstName) &&
         validateLastName(lastName) &&
